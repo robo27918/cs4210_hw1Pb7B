@@ -1,5 +1,5 @@
 #-------------------------------------------------------------------------
-# AUTHOR: your name
+# AUTHOR: Roberto Sigmund Toribio
 # FILENAME: title of the source file
 # SPECIFICATION: description of the program
 # FOR: CS 4210- Assignment #1
@@ -25,6 +25,10 @@ with open('contact_lens.csv', 'r') as csvfile:
          db.append (row)
          print(row)
 
+   
+#transform the original categorical training features to numbers and add to the 4D array X. For instance Young = 1, Prepresbyopic = 2, Presbyopic = 3
+# so X = [[1, 1, 1, 1], [2, 2, 2, 2], ...]]
+#--> add your Python code here
 def make_categorical_features():
   '''
 Feauture: 'Age'              'Spectacle',          'Astigmatism'      'Tear'
@@ -41,21 +45,18 @@ Feauture: 'Age'              'Spectacle',          'Astigmatism'      'Tear'
   astig_data = [astig_val[2] for astig_val in db]
   tear_data = [tear_val[3] for tear_val in db]
   
- 
-  
   age = [1 if age =="Young" else 2 if age=="Presbyopic" else 3 for age in age_data] 
   spectacle = [1 if spec=="Myope" else 2 for spec in spec_data]
   astigmatism = [1 if astig=="Yes" else 2 for astig in astig_data]
   tear =[1 if tear=="Reduced" else 2 for tear in tear_data]
   X= [age, spectacle, astigmatism, tear]
   
-  return [list (i) for i in zip(*X)]    
-#transform the original categorical training features to numbers and add to the 4D array X. For instance Young = 1, Prepresbyopic = 2, Presbyopic = 3
-# so X = [[1, 1, 1, 1], [2, 2, 2, 2], ...]]
-#--> add your Python code here
-
+  return [list (i) for i in zip(*X)] 
 X = make_categorical_features()
 
+
+#transform the original categorical training classes to numbers and add to the vector Y. For instance Yes = 1, No = 2, so Y = [1, 1, 2, 2, ...]
+#--> addd your Python code here
 def make_categorial_classes():
   ls = []
   for element in db:
@@ -65,8 +66,6 @@ def make_categorial_classes():
       ls.append(2)
   return ls
 
-#transform the original categorical training classes to numbers and add to the vector Y. For instance Yes = 1, No = 2, so Y = [1, 1, 2, 2, ...]
-#--> addd your Python code here
 Y = make_categorial_classes()
 
 
